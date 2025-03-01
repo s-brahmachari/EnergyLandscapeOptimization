@@ -82,9 +82,9 @@ class EnergyLandscapeOptimizer:
         elif self.method == "adagrad":
             self.opt_params["G_dw"] = np.zeros(shape)
 
-    def update(self) -> np.ndarray:
+    def update_step(self, grad) -> np.ndarray:
         """Performs an optimization step based on the selected method."""
-        grad = self.get_error_gradient()
+        
 
         if self.method in {"adam", "nadam"}:
             self.opt_params["m_dw"] *= self.beta1
@@ -154,10 +154,9 @@ class EnergyLandscapeOptimizer:
 
         df = pd.read_csv(ff_current, sep=None, engine='python')
         current_force_field = df.values
-        current_force_field = np.triu(current_force_field) + np.triu(current_force_field).T
-        np.fill_diagonal(current_force_field, 0.0)
         self.force_field = current_force_field
-        self.updated_force_field = self.update()
+        grad = self.get_error_gradient()
+        self.updated_force_field = self.update_step(grad)
 
         df_updated_ff = pd.DataFrame(self.updated_force_field, columns=list(df.columns.values))
 

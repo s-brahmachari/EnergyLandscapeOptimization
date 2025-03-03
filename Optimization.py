@@ -109,6 +109,9 @@ class EnergyLandscapeOptimizer:
         elif self.method == "adagrad":
             self.opt_params["G_dw"] += grad ** 2
             w = self.force_field - self.eta * grad / (np.sqrt(self.opt_params["G_dw"]) + self.epsilon)
+        
+        elif self.method == "sgd":
+            w = self.force_field - self.eta * grad
 
         self.t += 1
         return w

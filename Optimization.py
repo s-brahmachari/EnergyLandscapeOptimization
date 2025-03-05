@@ -13,7 +13,7 @@ class EnergyLandscapeOptimizer:
                  eta: float = 0.01, beta1: float = 0.9, beta2: float = 0.999,
                  epsilon: float = 1e-8, it: int = 1, error_pca_weight: float = 0.0,
                  scheduler: str = "none", scheduler_decay: float = 0.1, scheduler_step: int = 100,
-                 scheduler_eta_min: float = 0.0001, scheduler_T_max: int = 1000):
+                 scheduler_eta_min: float = 0.001, scheduler_T_max: int = 120):
         """
         Initializes the Energy Landscape Optimizer with given hyperparameters and learning rate scheduler.
 
